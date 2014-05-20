@@ -14,5 +14,5 @@ class TodosController < ApplicationController
       f.json { render :json => @todos, :only => [:id, :text, :completed]}
     end
   end
-  
+
 end

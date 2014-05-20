@@ -1,19 +1,19 @@
+
+var count = 1000;
+
 $( document ).ready(function(){
   
-
   //add new todo
-  $("input").keypress(function(e) {
-     if (e.which == 13) {
-       e.preventDefault();
-       var text = $('input').val();
-       if(!text.length) {
-         return;
-       }
-       else {
-         addTodo(text);
-         $('input').val("");
-       }
-     }
+  $("#todo-form").on('submit', function(e) {
+    e.preventDefault();
+    var text = $('input').val();
+    if(!text.length) {
+      return;
+    }
+    else {
+      addTodo({text: text, completed: false});
+      $('input').val("");
+    }
   });
   
   $('ul').on('click', 'li', function(){
@@ -31,19 +31,20 @@ $( document ).ready(function(){
      $(this).parent().remove();
    });
   
-  /*$('ul').on('mouseenter', 'li', function(){
-    $(this).find('span').text("Delete?");
-  })*/
-  
-  var addTodo = function(todoItem){
-    var newTodo = '<li data-id="' + todoItem.id + '">';
+  addTodo = function(todoItem) {
+    if (!todoItem.id) {
+      todoItem.id = count;
+      count += 1;
+    }
+    var $newTodo = $('<li data-id="' + todoItem.id + '"></li>');
 
     if (todoItem.completed) {
-      newTodo = '<li data-id="' + todoItem.id + '" class="completed">';
+      $newTodo.addClass("completed");
     }
-    newTodo += todoItem.text + '<span class="delete">Delete</span></li>';
+    $newTodo.append(todoItem.text + '<span class="delete">Delete</span>');
     
-    $(newTodo).hide().appendTo('ul').fadeIn(500);
+    $newTodo.hide().appendTo('ul').fadeIn(500);
+    console.log($newTodo);
   };
   
   $('#deleteAll').click(function(){
