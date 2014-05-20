@@ -35,6 +35,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry'
   gem 'pry-debugger'
+  gem 'rspec-rails'
 end
 
 # Use ActiveModel has_secure_password
